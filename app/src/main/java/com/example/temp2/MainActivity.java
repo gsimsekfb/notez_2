@@ -16,18 +16,8 @@
 package com.example.temp2;
 
 import android.os.Bundle;
-
-import com.google.android.material.tabs.TabLayout;
-import com.example.temp2.R;
-import com.h6ah4i.android.tablayouthelper.TabLayoutHelper;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import com.example.temp2.LauncherPagerAdapter;
-import com.example.temp2.R;
-import com.example.temp2.OptionsMenuFragment;
-
 
 public class MainActivity extends AppCompatActivity {
     private static final String FRAGMENT_TAG_OPTIONS_MENU = "options menu";
@@ -35,21 +25,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        final TabLayout tabLayout = findViewById(R.id.tablayout);
         ViewPager pager = findViewById(R.id.viewpager);
-
         pager.setAdapter(new LauncherPagerAdapter(getSupportFragmentManager()));
-
-        TabLayoutHelper tabLayoutHelper = new TabLayoutHelper(tabLayout, pager);
-        tabLayoutHelper.setAutoAdjustTabModeEnabled(true);
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(new OptionsMenuFragment(), FRAGMENT_TAG_OPTIONS_MENU)
-                    .commit();
-        }
     }
 }
