@@ -1,71 +1,55 @@
+/*
+ *    Copyright (C) 2015 Haruki Hasegawa
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package com.example.temp2;
 
+import android.os.Bundle;
+
+import com.google.android.material.tabs.TabLayout;
+import com.example.temp2.R;
+import com.h6ah4i.android.tablayouthelper.TabLayoutHelper;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.widget.ArrayAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import com.mobeta.android.dslv.DragSortController;
-import com.mobeta.android.dslv.DragSortListView;
+import com.example.temp2.LauncherPagerAdapter;
+import com.example.temp2.R;
+import com.example.temp2.OptionsMenuFragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
-    DragSortListView listView;
-    ArrayAdapter<String> adapter;
-
-    private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
-    {
-        @Override
-        public void drop(int from, int to)
-        {
-            if (from != to)
-            {
-                String item = adapter.getItem(from);
-                adapter.remove(item);
-                adapter.insert(item, to);
-            }
-        }
-    };
-
-    private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener()
-    {
-        @Override
-        public void remove(int which)
-        {
-            adapter.remove(adapter.getItem(which));
-        }
-    };
+    private static final String FRAGMENT_TAG_OPTIONS_MENU = "options menu";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        listView = (DragSortListView) findViewById(R.id.listview);
-        // String[] names = getResources().getStringArray(R.array.random_names);
-        String[] names = new String[]{"Tr", "In", "Ch", "UA", "US", "UK", "Ca", "Au", "Af"};
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(names));
-        adapter = new ArrayAdapter<String>(this, R.layout.row_item, R.id.textView1, list);
-        listView.setAdapter(adapter);
-        listView.setDropListener(onDrop);
-        listView.setRemoveListener(onRemove);
+        final TabLayout tabLayout = findViewById(R.id.tablayout);
+        ViewPager pager = findViewById(R.id.viewpager);
 
-        DragSortController controller = new DragSortController(listView);
-        controller.setDragHandleId(R.id.imageView1);
-        //controller.setClickRemoveId(R.id.);
-        controller.setRemoveEnabled(false);
-        controller.setSortEnabled(true);
-        controller.setDragInitMode(1);
-        //controller.setRemoveMode(removeMode);
+        pager.setAdapter(new LauncherPagerAdapter(getSupportFragmentManager()));
 
-        listView.setFloatViewManager(controller);
-        listView.setOnTouchListener(controller);
-        listView.setDragEnabled(true);
+        TabLayoutHelper tabLayoutHelper = new TabLayoutHelper(tabLayout, pager);
+        tabLayoutHelper.setAutoAdjustTabModeEnabled(true);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(new OptionsMenuFragment(), FRAGMENT_TAG_OPTIONS_MENU)
+                    .commit();
+        }
     }
 }

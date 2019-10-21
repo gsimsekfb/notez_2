@@ -14,6 +14,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DraggableGridExampleActivity"
+            android:label="@string/activity_title_demo_d_grid"/>
+
     </application>
 
 </manifest>
