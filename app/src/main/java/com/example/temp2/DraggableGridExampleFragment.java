@@ -19,6 +19,7 @@ package com.example.temp2;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -152,7 +153,7 @@ public class DraggableGridExampleFragment extends Fragment {
         MenuItem menuSwitchItem = menu.findItem(R.id.menu_switch_swap_mode);
         CompoundButton actionView = menuSwitchItem.getActionView().findViewById(R.id.switch_view);
 
-        // actionView.setOnCheckedChangeListener((buttonView, isChecked) -> updateItemMoveMode(isChecked));
+        actionView.setOnCheckedChangeListener((buttonView, isChecked) -> updateItemMoveMode(isChecked));
     }
 
     private void updateItemMoveMode(boolean swapMode) {
@@ -162,6 +163,8 @@ public class DraggableGridExampleFragment extends Fragment {
 
         mRecyclerViewDragDropManager.setItemMoveMode(mode);
         mAdapter.setItemMoveMode(mode);
+
+        Log.d("--- aaa", "updateItemMoveMode() .... ");
 
         // Snackbar.make(getView(), "Item move mode: " + (swapMode ? "SWAP" : "DEFAULT"), Snackbar.LENGTH_SHORT).show();
     }
