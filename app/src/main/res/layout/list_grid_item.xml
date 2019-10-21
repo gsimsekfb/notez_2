@@ -19,7 +19,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="96dp"
+    android:layout_height="36dp"
     android:layout_margin="4dp"
     android:background="@drawable/bg_swipe_item_neutral">
 
@@ -31,12 +31,15 @@
         android:foreground="?attr/selectableItemBackground"
         tools:ignore="UselessParent">
 
-        <TextView
+        <EditText
             android:id="@android:id/text1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top|left"
             android:gravity="center"
+            android:textSize="12dp"
+            android:inputType="text"
+            android:maxLines="1"
             tools:ignore="RtlHardcoded"/>
 
     </FrameLayout>

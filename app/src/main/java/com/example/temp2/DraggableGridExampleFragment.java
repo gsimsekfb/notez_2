@@ -71,7 +71,7 @@ public class DraggableGridExampleFragment extends Fragment {
 
         //noinspection ConstantConditions
         mRecyclerView = getView().findViewById(R.id.recycler_view);
-        mLayoutManager = new GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false);
+        mLayoutManager = new GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false);
 
         // drag & drop manager
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
